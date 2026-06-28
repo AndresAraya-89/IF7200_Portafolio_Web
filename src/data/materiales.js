@@ -277,10 +277,6 @@ export const materiales = {
       {
         "nombre": "Presentacion Modelo de Transporte",
         "archivo": "/materiales/transporte/Presentacion%20Modelo%20de%20Transporte.pdf"
-      },
-      {
-        "nombre": "Proyecto Integrado IC-2026 (1)",
-        "archivo": "/materiales/transporte/Proyecto%20Integrado%20IC-2026%20(1).pdf"
       }
     ],
     "formulas": [
@@ -365,20 +361,8 @@ export const materiales = {
   "programacion": {
     "pdfs": [
       {
-        "nombre": "Caso Programación Por Metas",
-        "archivo": "/materiales/programacion/Caso%20Programaci%C3%B3n%20Por%20Metas.pdf"
-      },
-      {
-        "nombre": "Ejercicio_Textil_Programacion_Entera",
-        "archivo": "/materiales/programacion/Ejercicio_Textil_Programacion_Entera.pdf"
-      },
-      {
         "nombre": "Presentación - Programación",
         "archivo": "/materiales/programacion/Presentaci%C3%B3n%20-%20Programaci%C3%B3n.pdf"
-      },
-      {
-        "nombre": "Solución programación no lineal",
-        "archivo": "/materiales/programacion/Soluci%C3%B3n%20programaci%C3%B3n%20no%20lineal.pdf"
       }
     ],
     "formulas": [

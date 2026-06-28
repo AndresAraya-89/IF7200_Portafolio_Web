@@ -285,18 +285,6 @@ export const redes = {
       formula: 'Z = \\sum_{(i,j)\\in T} c_{ij}',
       descripcion: 'Suma de las distancias de las aristas seleccionadas en el árbol T.',
     },
-    {
-      categoria: 'Flujo máximo',
-      nombre: 'Función objetivo',
-      formula: '\\max F = \\sum_{j} x_{sj}',
-      descripcion: 'Maximiza el flujo total que sale de la fuente s hacia el sumidero.',
-    },
-    {
-      categoria: 'Flujo máximo',
-      nombre: 'Restricción de capacidad',
-      formula: '0 \\le x_{ij} \\le u_{ij}',
-      descripcion: 'El flujo de cada arco no puede superar su capacidad uᵢⱼ (los arcos saturados son cuellos de botella).',
-    },
   ],
 
   // Pendiente: videos en YouTube y documentos de la solución en Excel QM.
