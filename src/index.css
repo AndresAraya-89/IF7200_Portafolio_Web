@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-marfil-50 text-ucr-tinta font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  /* Fondo sutil tipo "papel marfil" con un velo celeste */
+  .bg-paper {
+    background-image:
+      radial-gradient(1200px 600px at 100% -10%, rgba(127, 185, 221, 0.18), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(0, 113, 60, 0.08), transparent 55%);
+  }
+}
