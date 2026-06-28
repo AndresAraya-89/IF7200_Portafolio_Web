@@ -147,8 +147,8 @@ export const materiales = {
   "simulacion": {
     "pdfs": [
       {
-        "nombre": "Simulación Monte Carlo - Logística Portuaria Limón",
-        "archivo": "/materiales/simulacion/Simulacio%CC%81n%20Monte%20Carlo%20-%20Logi%CC%81stica%20Portuaria%20Limo%CC%81n.pdf"
+        "nombre": "Simulacion Monte Carlo - Logistica Portuaria Limon",
+        "archivo": "/materiales/simulacion/Simulacion%20Monte%20Carlo%20-%20Logistica%20Portuaria%20Limon.pdf"
       },
       {
         "nombre": "Taller Práctico Modelado de Simulación",
@@ -271,12 +271,12 @@ export const materiales = {
   "transporte": {
     "pdfs": [
       {
-        "nombre": "Enunciado de práctica",
-        "archivo": "/materiales/transporte/Enunciado%20de%20pra%CC%81ctica.pdf"
+        "nombre": "Enunciado de practica",
+        "archivo": "/materiales/transporte/Enunciado%20de%20practica.pdf"
       },
       {
-        "nombre": "Presentación Modelo de Transporte",
-        "archivo": "/materiales/transporte/Presentacio%CC%81n%20Modelo%20de%20Transporte.pdf"
+        "nombre": "Presentacion Modelo de Transporte",
+        "archivo": "/materiales/transporte/Presentacion%20Modelo%20de%20Transporte.pdf"
       },
       {
         "nombre": "Proyecto Integrado IC-2026 (1)",

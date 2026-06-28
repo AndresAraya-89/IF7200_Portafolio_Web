@@ -1,11 +1,16 @@
 import { useParams, Link } from 'react-router-dom'
 import { topics } from '../data/topics'
 import { materiales } from '../data/materiales'
+import { getContenido } from '../data/content'
 import TopicLogo from '../components/ui/TopicLogo'
+import ResumenEjecutivo from '../components/topic/ResumenEjecutivo'
+import Ejercicios from '../components/topic/Ejercicios'
+import Formulas from '../components/topic/Formulas'
+import RecursosMultimedia from '../components/topic/RecursosMultimedia'
 
-// Página de cada tema. Muestra el material que ya vive dentro del proyecto
-// (public/materiales/<slug>/): PDFs e imágenes de fórmulas.
-// A futuro se añadirá el Resumen Ejecutivo y los ejercicios paso a paso.
+// Página de cada tema, dividida en los 3 componentes de la rúbrica:
+//   1) Resumen Ejecutivo  2) Ejercicios paso a paso  3) Recursos Multimedia.
+// Más, como apoyo, el material original (PDFs e imágenes de fórmulas).
 export default function TopicPage() {
   const { id } = useParams()
   const topic = topics.find((t) => t.id === id)
@@ -21,17 +26,33 @@ export default function TopicPage() {
     )
   }
 
+  const contenido = getContenido(id)
   const material = materiales[id] ?? { pdfs: [], formulas: [] }
+  const color = topic.color
+
+  // En "Material original" solo se muestran el enunciado de ejercicios (sin
+  // resolver) y la presentación del grupo: se excluyen los PDFs de solución.
+  const esSolucion = (nombre) => /resuel|soluci/i.test(nombre)
+  const materialOriginal = material.pdfs.filter((d) => !esSolucion(d.nombre))
+
+  const secciones = [
+    contenido?.resumen && { href: '#resumen', label: 'Resumen' },
+    contenido?.ejercicios?.length && { href: '#ejercicios', label: 'Ejercicios' },
+    contenido?.formulas?.length && { href: '#formulas', label: 'Fórmulas' },
+    { href: '#recursos', label: 'Recursos' },
+    { href: '#material', label: 'Material original' },
+  ].filter(Boolean)
 
   return (
     <main className="bg-paper">
-      <div className="mx-auto max-w-5xl px-6 py-16">
+      <div className="mx-auto max-w-5xl px-6 py-12">
         <Link to="/" className="text-sm text-ucr-azul hover:underline">
           ← Volver al inicio
         </Link>
 
+        {/* Encabezado del tema */}
         <header className="mt-6 flex items-center gap-5">
-          <TopicLogo icon={topic.icon} color={topic.color} className="h-20 w-20" />
+          <TopicLogo icon={topic.icon} color={color} className="h-20 w-20" />
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-celeste-400">
               Tema del Portafolio
@@ -41,90 +62,101 @@ export default function TopicPage() {
           </div>
         </header>
 
-        {/* Documentos (PDF) */}
-        <section className="mt-12">
-          <h2 className="font-serif text-2xl font-bold text-ucr-tinta">Documentos</h2>
-          <p className="mb-5 text-sm text-ucr-tinta/60">
-            Presentaciones y ejercicios del tema (se abren en una pestaña nueva).
-          </p>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {material.pdfs.map((doc) => (
-              <li key={doc.archivo}>
-                <a
-                  href={doc.archivo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-2xl border border-marfil-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-celeste-300 hover:shadow-card"
-                >
-                  <span
-                    className="grid h-10 w-10 shrink-0 place-items-center rounded-lg text-xs font-bold text-white"
-                    style={{ backgroundColor: topic.color }}
-                  >
-                    PDF
-                  </span>
-                  <span className="text-sm font-medium text-ucr-tinta group-hover:text-ucr-azul">
-                    {doc.nombre}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* Sub-navegación de secciones */}
+        <nav className="sticky top-[60px] z-20 mt-8 -mx-2 flex flex-wrap gap-1 rounded-2xl border border-marfil-200 bg-white/85 px-2 py-2 backdrop-blur">
+          {secciones.map((s) => (
+            <a
+              key={s.href}
+              href={s.href}
+              className="rounded-full px-4 py-1.5 text-sm font-medium text-ucr-tinta/70 transition hover:bg-celeste-50 hover:text-ucr-azul"
+            >
+              {s.label}
+            </a>
+          ))}
+        </nav>
 
-        {/* Galería de fórmulas */}
-        {material.formulas.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-serif text-2xl font-bold text-ucr-tinta">Fórmulas</h2>
-            <p className="mb-5 text-sm text-ucr-tinta/60">
-              {material.formulas.length} fórmulas clave del modelo. Clic para ampliar.
+        {/* Aviso cuando el tema aún no tiene contenido desarrollado */}
+        {!contenido && (
+          <div className="mt-8 rounded-2xl border border-dashed border-marfil-300 bg-white/70 p-6">
+            <p className="font-semibold text-ucr-tinta">Contenido en desarrollo</p>
+            <p className="mt-1 text-sm text-ucr-tinta/60">
+              El Resumen Ejecutivo y los ejercicios paso a paso de este tema se publicarán
+              próximamente. Mientras tanto, puedes consultar el material original más abajo.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {material.formulas.map((img) => (
-                <a
-                  key={img.archivo}
-                  href={img.archivo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col overflow-hidden rounded-2xl border border-marfil-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-card"
-                >
-                  <span className="grid place-items-center bg-marfil-50 p-3">
-                    <img
-                      src={img.archivo}
-                      alt={img.nombre}
-                      loading="lazy"
-                      className="max-h-32 w-auto object-contain"
-                    />
-                  </span>
-                  <span className="border-t border-marfil-200 px-3 py-2 text-xs text-ucr-tinta/70">
-                    {img.nombre}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </section>
+          </div>
         )}
 
-        {/* Secciones pendientes según la rúbrica */}
-        <section className="mt-12">
-          <h2 className="font-serif text-2xl font-bold text-ucr-tinta">En construcción</h2>
-          <div className="mt-5 grid gap-5 sm:grid-cols-2">
-            {[
-              ['Resumen Ejecutivo', 'Síntesis analítica del tema con mis propias palabras.'],
-              ['Ejercicios paso a paso', 'Formulación, método y resultados digitados.'],
-            ].map(([titulo, desc]) => (
-              <div
-                key={titulo}
-                className="rounded-2xl border border-dashed border-marfil-300 bg-white/70 p-5"
+        <div className="mt-10 flex flex-col gap-14">
+          {contenido?.resumen && <ResumenEjecutivo resumen={contenido.resumen} color={color} />}
+          {contenido?.ejercicios?.length > 0 && (
+            <Ejercicios ejercicios={contenido.ejercicios} color={color} />
+          )}
+          {contenido?.formulas?.length > 0 && (
+            <Formulas formulas={contenido.formulas} color={color} />
+          )}
+          <RecursosMultimedia recursos={contenido?.recursos} color={color} />
+
+          {/* Material original: enunciado de ejercicios (sin solución) y
+              presentación del grupo. No es de autoría del estudiante. */}
+          <section id="material" className="scroll-mt-24">
+            <h2 className="font-serif text-2xl font-bold text-ucr-tinta">Material original</h2>
+            <p className="mb-4 text-sm text-ucr-tinta/60">
+              Enunciado de los ejercicios a realizar y presentación del tema.
+            </p>
+
+            {/* Aviso de pertenencia del material */}
+            <div className="mb-5 flex items-start gap-3 rounded-2xl border border-celeste-200 bg-celeste-50/60 p-4">
+              <svg
+                className="mt-0.5 h-5 w-5 shrink-0 text-ucr-azul"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
               >
-                <h3 className="font-serif text-lg font-semibold text-ucr-tinta">{titulo}</h3>
-                <p className="mt-2 text-sm text-ucr-tinta/60">{desc}</p>
-                <span className="mt-3 inline-block rounded-full bg-marfil-200 px-3 py-1 text-xs font-medium text-ucr-tinta/70">
-                  Próximamente
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4M12 8h.01" />
+              </svg>
+              <p className="text-sm leading-relaxed text-ucr-tinta/80">
+                <span className="font-semibold text-ucr-tinta">Este material no es de mi autoría.</span>{' '}
+                Pertenece al curso IF7200 y a los compañeros encargados de desarrollar el tema
+                «{topic.nombre}». Se incluye únicamente como referencia; los resúmenes y las
+                resoluciones paso a paso de este portafolio sí son de elaboración propia.
+              </p>
+            </div>
+
+            {materialOriginal.length > 0 ? (
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {materialOriginal.map((doc) => (
+                  <li key={doc.archivo}>
+                    <a
+                      href={doc.archivo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3 rounded-2xl border border-marfil-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-card"
+                    >
+                      <span
+                        className="grid h-10 w-10 shrink-0 place-items-center rounded-lg text-xs font-bold text-white"
+                        style={{ backgroundColor: color }}
+                      >
+                        PDF
+                      </span>
+                      <span className="text-sm font-medium text-ucr-tinta group-hover:text-ucr-azul">
+                        {doc.nombre}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-ucr-tinta/60">
+                El material original de este tema se agregará próximamente.
+              </p>
+            )}
+          </section>
+        </div>
       </div>
     </main>
   )
