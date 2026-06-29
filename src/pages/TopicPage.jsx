@@ -120,10 +120,9 @@ export default function TopicPage() {
                 <path d="M12 16v-4M12 8h.01" />
               </svg>
               <p className="text-sm leading-relaxed text-ucr-tinta/80">
-                <span className="font-semibold text-ucr-tinta">Este material no es de mi autoría.</span>{' '}
-                Pertenece al curso IF7200 y a los compañeros encargados de desarrollar el tema
-                «{topic.nombre}». Se incluye únicamente como referencia; los resúmenes y las
-                resoluciones paso a paso de este portafolio sí son de elaboración propia.
+                <span className="font-semibold text-ucr-tinta">Este material original no me pertenece.</span>{' '}
+                Es del curso IF7200 y de los compañeros que expusieron el tema de «{topic.nombre}»; lo
+                incluyo solo como referencia.
               </p>
             </div>
 

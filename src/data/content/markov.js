@@ -42,7 +42,7 @@ export const markov = {
       titulo: 'Clientes de cadenas de supermercados en Limón',
       etiqueta: 'Pronóstico de participación de mercado y estado estable',
       enunciado:
-        'El comercio minorista en Limón se reparte entre Maxi Palí (M), Megasuper (G) y supermercados locales (L). Maxi Palí concentra el 45 % de los clientes, Megasuper el 35 % y los locales el 20 %. Cada año las familias pueden permanecer o cambiar de cadena según precios, promociones, ubicación o cercanía. Con un período igual a 1 año, calcule π(1) y π(2), complete la tabla de pronóstico, resuelva el estado estable e interprete cuál cadena gana en el largo plazo.',
+        'Imaginemos el comercio de supermercados en Limón repartido entre tres cadenas: Maxi Palí (M), Megasuper (G) y los supermercados locales (L). Hoy, de cada 100 familias, 45 compran en Maxi Palí, 35 en Megasuper y 20 en los locales. Cada año la gente puede quedarse en su cadena de siempre o cambiarse, según cómo estén los precios, las promociones o qué tan cerca les quede. Tomando el año como período, vamos a ver cómo queda el mercado en π(1) y π(2), llenar la tabla de pronóstico, encontrar el estado estable y, al final, descubrir qué cadena termina llevándose la delantera.',
       datos: [
         { label: 'Estados', valor: 'M, G, L' },
         { label: 'π(0)', valor: '[0.45, 0.35, 0.20]' },
@@ -67,14 +67,14 @@ export const markov = {
             ['G', 0.1, 0.85, 0.05],
             ['L', 0.15, 0.1, 0.75],
           ],
-          nota: 'La diagonal (0.88, 0.85, 0.75) representa la permanencia o lealtad de los clientes.',
+          nota: 'La diagonal (0.88, 0.85, 0.75) es la lealtad: el porcentaje de clientes que se queda en su misma cadena de un año para otro.',
         },
       ],
       pasos: [
         {
           titulo: 'Paso 1: Cálculo de π(1)',
           explicacion:
-            'Se multiplica el vector actual por la matriz de transición. Cada componente combina los clientes que permanecen en una cadena con los que llegan desde las otras.',
+            'Para pasar de un año al siguiente multiplicamos el vector actual por la matriz de transición. La idea es sencilla: cada cadena conserva a los clientes que le son fieles y, encima, suma a los que se le pasan desde las otras dos.',
           formula: '\\pi^{(n+1)} = \\pi^{(n)} \\cdot P',
           sustitucion: [
             'M = 0.45(0.88) + 0.35(0.10) + 0.20(0.15) = 0.4610',
@@ -85,7 +85,7 @@ export const markov = {
         },
         {
           titulo: 'Paso 2: Cálculo de π(2)',
-          explicacion: 'Se repite el procedimiento usando π(1) como nuevo vector actual.',
+          explicacion: 'Hacemos exactamente lo mismo del paso anterior, solo que ahora arrancamos desde π(1) en vez del vector inicial.',
           sustitucion: [
             'M = 0.4610(0.88) + 0.3490(0.10) + 0.1900(0.15) = 0.46908',
             'G = 0.4610(0.07) + 0.3490(0.85) + 0.1900(0.10) = 0.34792',
@@ -96,7 +96,7 @@ export const markov = {
         {
           titulo: 'Paso 3: Tabla de pronóstico',
           explicacion:
-            'Se resumen los períodos 0, 1 y 2. La suma de cada fila debe dar 1, porque representa el 100 % del mercado (pequeñas diferencias serían por redondeo).',
+            'Juntamos los tres períodos (0, 1 y 2) en una sola tabla. Como cada fila es el total del mercado, tiene que sumar 1 (es decir, el 100 %); si aparece una diferencia mínima, es puro redondeo.',
           tabla: {
             columnas: ['Período', 'Maxi Palí', 'Megasuper', 'Locales', 'Suma'],
             decimales: [0, 5, 5, 5, 0],
@@ -110,7 +110,7 @@ export const markov = {
         {
           titulo: 'Paso 4: Planteamiento del estado estable',
           explicacion:
-            'El estado estable es la distribución que ya no cambia de un período a otro. Se plantea π = π·P, lo que genera una ecuación por estado más la condición de que las participaciones sumen 1.',
+            'El estado estable es ese punto en el que el reparto del mercado ya no se mueve aunque pase otro año más. Para hallarlo planteamos π = π·P, que nos deja una ecuación por cada cadena, más la condición de que las tres participaciones sumen 1.',
           formula: '\\pi = \\pi \\cdot P',
           sustitucion: [
             'M = 0.88M + 0.10G + 0.15L',
@@ -122,7 +122,7 @@ export const markov = {
         {
           titulo: 'Paso 5: Sistema reducido',
           explicacion:
-            'Se pasan los términos a un mismo lado y se simplifican dos ecuaciones de Markov; la tercera se reemplaza por la suma = 1. Así queda un sistema 3×3 listo para resolver (por ejemplo, en calculadora).',
+            'Acomodamos todo de un solo lado del igual y simplificamos dos de las ecuaciones de Markov; la tercera la cambiamos por la condición de que todo sume 1. Con eso nos queda un sistema de 3×3 que ya se resuelve sin problema (por ejemplo, con calculadora).',
           sustitucion: [
             '0.12M - 0.10G - 0.15L = 0',
             '-0.07M + 0.15G - 0.10L = 0',
@@ -142,7 +142,7 @@ export const markov = {
         {
           titulo: 'Paso 6: Solución del sistema',
           explicacion:
-            'Al resolver el sistema se obtiene el vector de estado estable. Se usan solo dos ecuaciones de Markov porque son linealmente dependientes; la condición de suma = 1 garantiza el 100 % del mercado.',
+            'Al resolver ese sistema sale el vector de estado estable. Usamos solo dos de las ecuaciones de Markov porque la tercera no aporta nada nuevo (son dependientes entre sí), y la condición de que sumen 1 es la que cierra el 100 % del mercado.',
           sustitucion: ['M = 0.4924', 'G = 0.3409', 'L = 0.1667'],
           resultado: '\\pi = [\\,0.4924,\\ 0.3409,\\ 0.1667\\,]',
           tabla: {
@@ -158,7 +158,7 @@ export const markov = {
         },
       ],
       interpretacion:
-        'En los dos primeros períodos Maxi Palí sube de 45.00 % a 46.10 % y luego a 46.91 %, mientras Megasuper baja levemente (35.00 % → 34.79 %) y los locales descienden de 20.00 % a 18.30 %. El estado estable indica que, si las probabilidades de permanencia y cambio se mantienen, el mercado tendería a 49.24 % para Maxi Palí, 34.09 % para Megasuper y 16.67 % para los locales. Por lo tanto, la cadena que gana en el largo plazo es Maxi Palí; Megasuper debería enfocarse en retener clientes y reducir la fuga mediante mejores precios, promociones, servicio y programas de fidelización.',
+        'En los primeros dos años Maxi Palí va en subida: pasa de 45.00 % a 46.10 % y luego a 46.91 %. Megasuper baja apenas (de 35.00 % a 34.79 %) y los más golpeados son los locales, que caen de 20.00 % a 18.30 %. Si la gente mantiene sus costumbres de quedarse o cambiarse, el mercado termina asentándose en 49.24 % para Maxi Palí, 34.09 % para Megasuper y 16.67 % para los locales. En pocas palabras: a la larga la que se queda con el mercado es Maxi Palí, y si Megasuper no quiere seguir cediendo terreno, le tocaría enfocarse en retener a su gente con mejores precios, promociones, servicio y programas de fidelidad.',
     },
   ],
 
