@@ -582,7 +582,13 @@ export const controlEstadistico = {
     },
   ],
 
-  // Pendiente: el estudiante creará videos en YouTube (tutoriales de Excel QM)
-  // y enlazará los documentos de Excel QM alojados en Google Drive.
-  recursos: { videos: [], documentos: [] },
+  // Recursos multimedia: video en YouTube + documento de la solución en Excel QM (Google Drive).
+  recursos: {
+    videos: [
+      { titulo: 'Control Estadístico — resolución en Excel QM', url: 'https://www.youtube.com/embed/EwojJuV2bro' },
+    ],
+    documentos: [
+      { titulo: 'Solución en Excel QM (.xlsx)', url: 'https://docs.google.com/spreadsheets/d/1gJhIdMpsw2x5WgjYJbayFZQghwhIs93T/edit?usp=sharing&ouid=117814125588622869517&rtpof=true&sd=true' },
+    ],
+  },
 }

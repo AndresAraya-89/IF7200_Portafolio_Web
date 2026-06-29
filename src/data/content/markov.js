@@ -202,6 +202,13 @@ export const markov = {
     },
   ],
 
-  // Pendiente: videos en YouTube y documentos de apoyo (el caso se resuelve a mano, sin Excel QM).
-  recursos: { videos: [], documentos: [] },
+  // Recursos multimedia: video en YouTube + documento de la solución en Excel QM (Google Drive).
+  recursos: {
+    videos: [
+      { titulo: 'Análisis de Markov — resolución en Excel QM', url: 'https://www.youtube.com/embed/SmLIPObETUY' },
+    ],
+    documentos: [
+      { titulo: 'Solución en Excel QM (.xlsx)', url: 'https://docs.google.com/spreadsheets/d/1u1AJBmJ1BxS0q7EVxWntsMwHccvZAy0h/edit?usp=sharing&ouid=117814125588622869517&rtpof=true&sd=true' },
+    ],
+  },
 }

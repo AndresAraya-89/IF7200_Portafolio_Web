@@ -396,6 +396,13 @@ export const simulacion = {
     },
   ],
 
-  // Pendiente: videos en YouTube y documentos de la solución en Excel QM.
-  recursos: { videos: [], documentos: [] },
+  // Recursos multimedia: video en YouTube + documento de la solución en Excel QM (Google Drive).
+  recursos: {
+    videos: [
+      { titulo: 'Modelo de Simulación — resolución en Excel QM', url: 'https://www.youtube.com/embed/xMr8uyhSlN8' },
+    ],
+    documentos: [
+      { titulo: 'Solución en Excel QM (.xlsx)', url: 'https://docs.google.com/spreadsheets/d/1vncoIOkdKboTlFwxhzT037g4gjeTnHv3/edit?usp=sharing&ouid=117814125588622869517&rtpof=true&sd=true' },
+    ],
+  },
 }

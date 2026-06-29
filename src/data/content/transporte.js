@@ -363,6 +363,13 @@ export const transporte = {
     },
   ],
 
-  // Pendiente: videos en YouTube y documentos de la solución en Excel QM.
-  recursos: { videos: [], documentos: [] },
+  // Recursos multimedia: video en YouTube + documento de la solución en Excel QM (Google Drive).
+  recursos: {
+    videos: [
+      { titulo: 'Modelo de Transporte — resolución en Excel QM', url: 'https://www.youtube.com/embed/XvzhjIkqFhY' },
+    ],
+    documentos: [
+      { titulo: 'Solución en Excel QM (.xlsx)', url: 'https://docs.google.com/spreadsheets/d/1_kW8r1C95JolPmZGCCvIAMgXNizwOvwy/edit?usp=sharing&ouid=117814125588622869517&rtpof=true&sd=true' },
+    ],
+  },
 }
