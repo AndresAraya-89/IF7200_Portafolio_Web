@@ -45,30 +45,30 @@ export default function TopicPage() {
 
   return (
     <main className="bg-paper">
-      <div className="mx-auto max-w-5xl px-6 py-12">
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
         <Link to="/" className="text-sm text-ucr-azul hover:underline">
           ← Volver al inicio
         </Link>
 
         {/* Encabezado del tema */}
-        <header className="mt-6 flex items-center gap-5">
-          <TopicLogo icon={topic.icon} color={color} className="h-20 w-20" />
-          <div>
+        <header className="mt-6 flex items-center gap-4 sm:gap-5">
+          <TopicLogo icon={topic.icon} color={color} className="h-14 w-14 shrink-0 sm:h-20 sm:w-20" />
+          <div className="min-w-0">
             <p className="text-sm font-semibold uppercase tracking-wide text-celeste-400">
               Tema del Portafolio
             </p>
-            <h1 className="font-serif text-4xl font-bold text-ucr-tinta">{topic.nombre}</h1>
-            <p className="mt-1 text-ucr-tinta/70">{topic.descripcion}</p>
+            <h1 className="font-serif text-3xl font-bold text-ucr-tinta sm:text-4xl">{topic.nombre}</h1>
+            <p className="mt-1 text-sm text-ucr-tinta/70 sm:text-base">{topic.descripcion}</p>
           </div>
         </header>
 
-        {/* Sub-navegación de secciones */}
-        <nav className="sticky top-[60px] z-20 mt-8 -mx-2 flex flex-wrap gap-1 rounded-2xl border border-marfil-200 bg-white/85 px-2 py-2 backdrop-blur">
+        {/* Sub-navegación de secciones (scroll horizontal en móvil) */}
+        <nav className="sticky top-[68px] z-20 mt-8 -mx-2 flex flex-nowrap gap-1 overflow-x-auto rounded-2xl border border-marfil-200 bg-white/85 px-2 py-2 backdrop-blur sm:flex-wrap sm:overflow-visible">
           {secciones.map((s) => (
             <a
               key={s.href}
               href={s.href}
-              className="rounded-full px-4 py-1.5 text-sm font-medium text-ucr-tinta/70 transition hover:bg-celeste-50 hover:text-ucr-azul"
+              className="shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium text-ucr-tinta/70 transition hover:bg-celeste-50 hover:text-ucr-azul"
             >
               {s.label}
             </a>

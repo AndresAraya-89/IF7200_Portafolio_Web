@@ -22,9 +22,9 @@ export default function Body() {
         {/* --- Presentación formal --- */}
         <section className="lg:col-span-3">
           <article className="overflow-hidden rounded-3xl border border-marfil-200 bg-white shadow-card">
-            <div className="flex flex-col items-center gap-3 bg-gradient-to-b from-celeste-50 to-white px-8 py-10 text-center">
-              <UcrCrest className="h-24 w-24" />
-              <h1 className="font-serif text-3xl font-bold tracking-tight text-ucr-tinta sm:text-4xl">
+            <div className="flex flex-col items-center gap-3 bg-gradient-to-b from-celeste-50 to-white px-6 py-8 text-center sm:px-8 sm:py-10">
+              <UcrCrest className="h-20 w-20 sm:h-24 sm:w-24" />
+              <h1 className="font-serif text-2xl font-bold tracking-tight text-ucr-tinta sm:text-4xl">
                 {cursoInfo.universidad}
               </h1>
               <p className="text-lg font-medium text-ucr-azul">{cursoInfo.sede}</p>
@@ -33,7 +33,7 @@ export default function Body() {
               </span>
             </div>
 
-            <dl className="divide-y divide-marfil-200 px-8 py-6">
+            <dl className="divide-y divide-marfil-200 px-6 py-6 sm:px-8">
               {datos.map(([label, valor]) => (
                 <div key={label} className="flex flex-col gap-1 py-3 sm:flex-row sm:gap-4">
                   <dt className="w-40 shrink-0 text-sm font-semibold uppercase tracking-wide text-celeste-400">

@@ -54,7 +54,7 @@ export default function Paso({ paso, index, color = '#00713C' }) {
         {/* Resultado destacado */}
         {paso.resultado && (
           <div
-            className="mt-3 inline-flex items-center gap-2 rounded-xl px-4 py-2 text-white"
+            className="mt-3 inline-flex max-w-full items-center gap-2 overflow-x-auto rounded-xl px-4 py-2 text-white"
             style={{ backgroundColor: color }}
           >
             <span className="text-[11px] font-semibold uppercase tracking-wide opacity-80">
